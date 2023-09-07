@@ -19,7 +19,9 @@ app.post('/projects', (request, response) => {
   ])
 })
 
-app.put('/projects/:id', (request, response) => {
+app.put('/projects/:id/:name', (request, response) => {
+  const { id, name } = request.params
+  console.log(`O id é ${id} e o nome é ${name} Glória à Deus!`)
   return response.json([
     'Deus é BOMMMM!', 
     "Deus é grande!",
