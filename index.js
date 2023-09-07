@@ -8,4 +8,27 @@ app.get('/projects', (request, response) => {
     "Deus é grande!"
   ])
 })
+
+app.post('/projects', (request, response) => {
+  return response.json([
+    'Deus é BOM!', 
+    "Deus é grande!",
+    "Deus é Poderoso pra fazer infinitamente mais!"
+  ])
+})
+
+app.put('/projects/:id', (request, response) => {
+  return response.json([
+    'Deus é BOMMMM!', 
+    "Deus é grande!",
+    "Deus é Poderoso pra fazer infinitamente mais!"
+  ])
+})
+
+app.delete('/projects/:id', (request, response) => {
+  return response.json([
+    "Deus é grande!",
+    "Deus é Poderoso pra fazer infinitamente mais!"
+  ])
+})
 app.listen(port, () => console.log('Jesus é maravilhoso!'))
