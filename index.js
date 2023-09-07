@@ -6,6 +6,15 @@ const port = 8089
 
 const projects = []
 
+const logRoutes = (request, response, next) => {
+  const { method, url } = request
+  const route = `${method.toUpperCase()} ${url}`
+  console.log(route)
+  return next()
+}
+
+app.use(logRoutes)
+
 app.get('/projects', (request, response) => {
   return response.json(projects)
 })
@@ -45,9 +54,12 @@ app.put('/projects/:id', (request, response) => {
 })
 
 app.delete('/projects/:id', (request, response) => {
-  return response.json([
-    "Deus é grande!",
-    "Deus é Poderoso pra fazer infinitamente mais!"
-  ])
+  const { id } = request.params
+  const projectIndex = projects.findIndex(p => p.id === id)
+  if(projectIndex < 0){
+    return response.status(404).json({ error: 'Project not found!' })
+  }
+  projects.splice(projectIndex)
+  return response.status(204).send()
 })
 app.listen(port, () => console.log('Jesus é maravilhoso!'))
