@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 const port = 8089
 
 app.get('/projects', (request, response) => {
@@ -12,6 +13,8 @@ app.get('/projects', (request, response) => {
 })
 
 app.post('/projects', (request, response) => {
+  const { name, owner } = request.body
+  console.log(name, owner)
   return response.json([
     'Deus é BOM!', 
     "Deus é grande!",
@@ -20,7 +23,8 @@ app.post('/projects', (request, response) => {
 })
 
 app.put('/projects/:id/:name', (request, response) => {
-  const { id, name } = request.params
+  const { id } = request.params
+  const { name, owner } = request.body
   console.log(`O id é ${id} e o nome é ${name} Glória à Deus!`)
   return response.json([
     'Deus é BOMMMM!', 
