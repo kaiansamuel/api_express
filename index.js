@@ -21,14 +21,27 @@ app.post('/projects', (request, response) => {
   return response.status(201).json(project)
 })
 
-app.put('/projects/:id/:name', (request, response) => {
+app.put('/projects/:id', (request, response) => {
+  const {id} = request.params
   const { name, owner } = request.body
-  console.log(`O id é ${id} e o nome é ${name} Glória à Deus!`)
-  return response.json([
-    'Deus é BOMMMM!', 
-    "Deus é grande!",
-    "Deus é Poderoso pra fazer infinitamente mais!"
-  ])
+  const projectIndex = projects.findIndex(p => p.id === id)
+
+  if(projectIndex < 0){
+    return response.status(404).json({ error: 'Project not found!' })
+  }
+  if (!name || !owner){
+    return response.status(400).json({ error:'Name and owner are required!' })
+  }
+
+  const project = {
+    id,
+    name,
+    owner
+  }
+
+  projects[projectIndex] = project
+  return response.json(project)
+
 })
 
 app.delete('/projects/:id', (request, response) => {
