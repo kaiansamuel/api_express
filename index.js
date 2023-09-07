@@ -1,29 +1,27 @@
 const express = require('express')
+const { v4: uuid } = require('uuid')
 const app = express()
 app.use(express.json())
 const port = 8089
 
+const projects = []
+
 app.get('/projects', (request, response) => {
-  const { title, owner, page } = request.query
-  console.log(title, owner, page)
-  return response.json([
-    'Deus é BOM!', 
-    "Deus é grande!"
-  ])
+  return response.json(projects)
 })
 
 app.post('/projects', (request, response) => {
   const { name, owner } = request.body
-  console.log(name, owner)
-  return response.json([
-    'Deus é BOM!', 
-    "Deus é grande!",
-    "Deus é Poderoso pra fazer infinitamente mais!"
-  ])
+  const project = {
+    id: uuid(),
+    name,
+    owner
+  }
+  projects.push(project)
+  return response.status(201).json(project)
 })
 
 app.put('/projects/:id/:name', (request, response) => {
-  const { id } = request.params
   const { name, owner } = request.body
   console.log(`O id é ${id} e o nome é ${name} Glória à Deus!`)
   return response.json([
