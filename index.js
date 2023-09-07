@@ -3,6 +3,8 @@ const app = express()
 const port = 8089
 
 app.get('/projects', (request, response) => {
+  const { title, owner, page } = request.query
+  console.log(title, owner, page)
   return response.json([
     'Deus é BOM!', 
     "Deus é grande!"
